@@ -1,0 +1,19 @@
+{{- if .Values.eallprodRunSystemTestsConfigMap.create -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.eallprodRunSystemTestsConfigMap.name }}{{ .Values.gerritCommitID.value   }}
+data:
+  eallprod-source-code-run-system-tests.sh: |+
+    #!/usr/bin/env bash
+    cd /home/eallprod
+    git clone ssh://eallprod@gerrit.ericsson.se:29418/ria/ria-flow-reporting
+    git clone {{ .Values.gerritCommitID.value  }}
+    cd ria-flow-reporting
+    source /tmp/miniconda3/etc/profile.d/conda.sh
+    conda activate conda_environment
+    pip install -r requirements.txt
+    ./setup.sh -q
+    python -mdata_flow_tests.cda.alarmboard_flow
+    exit $?
+{{- end }}

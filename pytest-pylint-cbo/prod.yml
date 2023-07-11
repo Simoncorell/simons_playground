@@ -1,0 +1,70 @@
+name: prod
+channels:
+  - conda-forge
+  - default
+  - plotly
+  - anaconda
+dependencies:
+  # Key packages
+  - python=3.7.*
+  - conda
+  - pip
+  #HDFS
+  - libhdfs3
+  # Message bus
+  - librdkafka # Workaround for making CI work due to GLIBC_2.12 issue perhaps not in pip
+  - python-avro
+  #HBASE.
+  - arrow-cpp
+  - pyarrow
+  - parquet-cpp
+
+  - pip:
+    - arrow
+    - karateclub
+    - protobuf==3.12.2
+    # Key packages
+    - pyspark==2.4.4
+    - luigi==2.8.12
+    - apache-airflow
+    # HDFS
+    - hdfs3
+    # Interactive
+    - pyinotify #Track file system changes
+    #Generate html to PDF
+    - matplotlib
+    # Message bus
+    - confluent-kafka 
+    - kafka-python
+    - pika
+    # HBASE.
+    - happybase
+    # Metrics
+    - prometheus_client
+    - elasticsearch
+    # Misc.
+    - statsmodels
+    - scipy
+    - numpy
+    - lxml
+    - xlrd # perhaps we need a number on it, e.g. xlrd3
+    - requests
+    - pandas>=1.3.1 # 1.3.0 Has compatibility issues with pickle as of 15/7 - 2021 https://github.com/pandas-dev/pandas/issues/42345
+    - regex
+    - paramiko
+    - sqlalchemy
+    - pymssql
+    - scikit-learn
+    - kazoo  # ZooKeeper client
+    - pymysql
+    - networkx
+    - plotly
+    - kaleido
+    - cython
+    # CI and Code Quality
+    - pytest
+    - pytest-mock
+    - pylint==2.9.6
+    - docutils
+    - openpyxl
+    - coverage==5.5

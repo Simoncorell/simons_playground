@@ -1,0 +1,6 @@
+# This is airflow_restapi:1.0.7
+FROM armdocker.rnd.ericsson.se/proj-dsi-portal/daas-it/daas-integration-test-anomalies:1.0.0
+
+COPY airflow_main.py /eallprod/
+
+CMD ["python3", "airflow_main.py", "https://des-alliance-airflow.corey005.rnd.gic.ericsson.se/api/v1", "eallprod", "eallprod", "benchmarking_fdn_daily_wide_ci_caas", "1234567890", "gerrit_ref"]

@@ -1,0 +1,1 @@
+FROM armdocker.rnd.ericsson.se/proj-dsi-portal/daas-it/get-source-code:1.0.0

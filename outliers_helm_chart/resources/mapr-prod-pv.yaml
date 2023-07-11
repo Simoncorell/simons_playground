@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name:  mapr-spark-pv
+spec:
+  capacity:
+    storage: 50Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+  - rw,hard,nolock,relatime,proto=tcp,mountport=2049,sec=sys,local_lock=all
+  nfs:
+    path: /mapr/
+    server: seroius07810.sero.gic.ericsson.se
+    readOnly:  true

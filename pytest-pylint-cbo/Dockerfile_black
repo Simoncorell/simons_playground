@@ -1,0 +1,20 @@
+# This is a inspiration Dockerfile how to build a cbo based image such as:
+# armdocker.rnd.ericsson.se/proj-dps-daas-common-development/cbo-pytest-pylint-black:1.0.0
+
+ARG CBO_IMAGE_URL=armdocker.rnd.ericsson.se/proj-dps-daas-common-development/cbo-pytest-pylint
+ARG CBO_VERSION=1.0.0
+FROM ${CBO_IMAGE_URL}:${CBO_VERSION}
+
+USER root
+
+# Install condaenv
+RUN . /tmp/miniconda3/etc/profile.d/conda.sh \
+    && conda activate conda_environment \
+    && pip install black -i https://arm.sero.gic.ericsson.se/artifactory/api/pypi/pypi-remote/simple/ \
+    && conda deactivate
+
+USER eallprod
+
+# Perhaps need to copy over users's ssh keys and/or known_host file for cdacommon.
+
+

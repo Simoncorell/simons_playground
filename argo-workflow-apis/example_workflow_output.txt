@@ -1,0 +1,498 @@
+{
+  "metadata": {
+    "name": "outliers-biweekly-system-tests-74j84-1647842400",
+    "namespace": "outliers-system-tests",
+    "selfLink": "/apis/argoproj.io/v1alpha1/namespaces/outliers-system-tests/workflows/outliers-biweekly-system-tests-74j84-1647842400",
+    "uid": "f3ecfa51-1960-4096-a2eb-f759ea86286a",
+    "resourceVersion": "252691139",
+    "generation": 4,
+    "creationTimestamp": "2022-03-21T06:00:00Z",
+    "labels": {
+      "workflows.argoproj.io/completed": "true",
+      "workflows.argoproj.io/cron-workflow": "outliers-biweekly-system-tests-74j84",
+      "workflows.argoproj.io/phase": "Succeeded"
+    },
+    "annotations": {
+      "workflows.argoproj.io/scheduled-time": "2022-03-21T06:00:00Z"
+    },
+    "ownerReferences": [
+      {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "CronWorkflow",
+        "name": "outliers-biweekly-system-tests-74j84",
+        "uid": "04f46854-64ec-43c5-b282-2945d363520f",
+        "controller": true,
+        "blockOwnerDeletion": true
+      }
+    ],
+    "managedFields": [
+      {
+        "manager": "workflow-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2022-03-21T06:08:07Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              ".": {},
+              "f:workflows.argoproj.io/scheduled-time": {}
+            },
+            "f:labels": {
+              ".": {},
+              "f:workflows.argoproj.io/completed": {},
+              "f:workflows.argoproj.io/cron-workflow": {},
+              "f:workflows.argoproj.io/phase": {}
+            },
+            "f:ownerReferences": {}
+          },
+          "f:spec": {
+            ".": {},
+            "f:arguments": {},
+            "f:entrypoint": {},
+            "f:imagePullSecrets": {},
+            "f:onExit": {},
+            "f:serviceAccountName": {},
+            "f:templates": {},
+            "f:volumes": {}
+          },
+          "f:status": {
+            ".": {},
+            "f:artifactRepositoryRef": {
+              ".": {},
+              "f:default": {}
+            },
+            "f:conditions": {},
+            "f:estimatedDuration": {},
+            "f:finishedAt": {},
+            "f:nodes": {
+              ".": {},
+              "f:outliers-biweekly-system-tests-74j84-1647842400": {
+                ".": {},
+                "f:children": {},
+                "f:displayName": {},
+                "f:estimatedDuration": {},
+                "f:finishedAt": {},
+                "f:id": {},
+                "f:name": {},
+                "f:outboundNodes": {},
+                "f:phase": {},
+                "f:progress": {},
+                "f:resourcesDuration": {
+                  ".": {},
+                  "f:cpu": {},
+                  "f:memory": {}
+                },
+                "f:startedAt": {},
+                "f:templateName": {},
+                "f:templateScope": {},
+                "f:type": {}
+              },
+              "f:outliers-biweekly-system-tests-74j84-1647842400-1845043157": {
+                ".": {},
+                "f:children": {},
+                "f:displayName": {},
+                "f:finishedAt": {},
+                "f:id": {},
+                "f:name": {},
+                "f:outboundNodes": {},
+                "f:phase": {},
+                "f:startedAt": {},
+                "f:templateName": {},
+                "f:templateScope": {},
+                "f:type": {}
+              },
+              "f:outliers-biweekly-system-tests-74j84-1647842400-202841961": {
+                ".": {},
+                "f:boundaryID": {},
+                "f:children": {},
+                "f:displayName": {},
+                "f:finishedAt": {},
+                "f:id": {},
+                "f:name": {},
+                "f:phase": {},
+                "f:startedAt": {},
+                "f:templateScope": {},
+                "f:type": {}
+              },
+              "f:outliers-biweekly-system-tests-74j84-1647842400-2508766385": {
+                ".": {},
+                "f:boundaryID": {},
+                "f:displayName": {},
+                "f:finishedAt": {},
+                "f:id": {},
+                "f:message": {},
+                "f:name": {},
+                "f:phase": {},
+                "f:startedAt": {},
+                "f:templateName": {},
+                "f:templateScope": {},
+                "f:type": {}
+              },
+              "f:outliers-biweekly-system-tests-74j84-1647842400-560497379": {
+                ".": {},
+                "f:boundaryID": {},
+                "f:displayName": {},
+                "f:estimatedDuration": {},
+                "f:finishedAt": {},
+                "f:hostNodeName": {},
+                "f:id": {},
+                "f:name": {},
+                "f:outputs": {
+                  ".": {},
+                  "f:exitCode": {}
+                },
+                "f:phase": {},
+                "f:progress": {},
+                "f:resourcesDuration": {
+                  ".": {},
+                  "f:cpu": {},
+                  "f:memory": {}
+                },
+                "f:startedAt": {},
+                "f:templateName": {},
+                "f:templateScope": {},
+                "f:type": {}
+              },
+              "f:outliers-biweekly-system-tests-74j84-1647842400-734023356": {
+                ".": {},
+                "f:boundaryID": {},
+                "f:children": {},
+                "f:displayName": {},
+                "f:estimatedDuration": {},
+                "f:finishedAt": {},
+                "f:id": {},
+                "f:name": {},
+                "f:phase": {},
+                "f:progress": {},
+                "f:resourcesDuration": {
+                  ".": {},
+                  "f:cpu": {},
+                  "f:memory": {}
+                },
+                "f:startedAt": {},
+                "f:templateScope": {},
+                "f:type": {}
+              }
+            },
+            "f:phase": {},
+            "f:progress": {},
+            "f:resourcesDuration": {
+              ".": {},
+              "f:cpu": {},
+              "f:memory": {}
+            },
+            "f:startedAt": {}
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "templates": [
+      {
+        "name": "workflow",
+        "inputs": {},
+        "outputs": {},
+        "metadata": {},
+        "steps": [
+          [
+            {
+              "name": "run-outliers-system-tests",
+              "template": "run-outliers-system-tests-template",
+              "arguments": {}
+            }
+          ]
+        ]
+      },
+      {
+        "name": "send-email-on-exit",
+        "inputs": {},
+        "outputs": {},
+        "metadata": {},
+        "steps": [
+          [
+            {
+              "name": "send-failure-email",
+              "template": "send-email",
+              "arguments": {
+                "parameters": [
+                  {
+                    "name": "message_type",
+                    "value": "failure"
+                  }
+                ]
+              },
+              "when": "{{workflow.status}} != Succeeded"
+            }
+          ]
+        ]
+      },
+      {
+        "name": "send-email",
+        "inputs": {
+          "parameters": [
+            {
+              "name": "message_type"
+            }
+          ]
+        },
+        "outputs": {},
+        "metadata": {},
+        "container": {
+          "name": "",
+          "image": "armdocker.rnd.ericsson.se/proj-dsi-portal/argo/cron_send_email:1.0.0",
+          "command": [
+            "sh",
+            "-c"
+          ],
+          "args": [
+            "python3 send_email.py {{inputs.parameters.message_type}} PDLSIDG4TE@pdl.internal.ericsson.com"
+          ],
+          "workingDir": "/root",
+          "resources": {}
+        }
+      },
+      {
+        "name": "run-outliers-system-tests-template",
+        "inputs": {},
+        "outputs": {},
+        "metadata": {},
+        "container": {
+          "name": "run-outliers-system-tests-container",
+          "image": "armdocker.rnd.ericsson.se/proj-dsi-portal/ecrlsmn/pacc-cbo-spark8s-prod-eallprod:1.0.10",
+          "command": [
+            "sh",
+            "-c"
+          ],
+          "args": [
+            "/opt/config/spark-env.sh && /home/eallprod/eallprod_run_system_test/eallprod-source-code-run-system-tests.sh;"
+          ],
+          "env": [
+            {
+              "name": "http_proxy",
+              "value": "www-proxy.seli.gic.ericsson.se:8080"
+            },
+            {
+              "name": "https_proxy",
+              "value": "www-proxy.seli.gic.ericsson.se:8080"
+            }
+          ],
+          "resources": {},
+          "volumeMounts": [
+            {
+              "name": "mapr-pv-storage",
+              "mountPath": "/mapr"
+            },
+            {
+              "name": "spark-config",
+              "mountPath": "/opt/config"
+            },
+            {
+              "name": "eallprod-system-test-config",
+              "mountPath": "/home/eallprod/eallprod_run_system_test"
+            },
+            {
+              "name": "armdocker-secret",
+              "mountPath": "/root/.docker"
+            },
+            {
+              "name": "netrc-secret",
+              "mountPath": "/root"
+            },
+            {
+              "name": "ticket-key",
+              "readOnly": true,
+              "mountPath": "/tmp/mapr-ticket"
+            }
+          ],
+          "imagePullPolicy": "IfNotPresent"
+        }
+      }
+    ],
+    "entrypoint": "workflow",
+    "arguments": {},
+    "serviceAccountName": "driver-sa",
+    "volumes": [
+      {
+        "name": "netrc-secret",
+        "secret": {
+          "secretName": "netrc"
+        }
+      },
+      {
+        "name": "armdocker-secret",
+        "secret": {
+          "secretName": "armdocker-registry"
+        }
+      },
+      {
+        "name": "spark-config",
+        "configMap": {
+          "name": "spark-env-sh",
+          "defaultMode": 511
+        }
+      },
+      {
+        "name": "eallprod-system-test-config",
+        "configMap": {
+          "name": "eallprod-system-test-configmap",
+          "defaultMode": 511
+        }
+      },
+      {
+        "name": "mapr-pv-storage",
+        "persistentVolumeClaim": {
+          "claimName": "team-outliers-system-tests-mapr-prod-pvc"
+        }
+      },
+      {
+        "name": "ticket-key",
+        "secret": {
+          "secretName": "mapr-user-secret"
+        }
+      }
+    ],
+    "imagePullSecrets": [
+      {
+        "name": "armdocker-registry"
+      }
+    ],
+    "onExit": "send-email-on-exit"
+  },
+  "status": {
+    "phase": "Succeeded",
+    "startedAt": "2022-03-21T06:00:00Z",
+    "finishedAt": "2022-03-21T06:08:07Z",
+    "estimatedDuration": 272,
+    "progress": "1/1",
+    "nodes": {
+      "outliers-biweekly-system-tests-74j84-1647842400": {
+        "id": "outliers-biweekly-system-tests-74j84-1647842400",
+        "name": "outliers-biweekly-system-tests-74j84-1647842400",
+        "displayName": "outliers-biweekly-system-tests-74j84-1647842400",
+        "type": "Steps",
+        "templateName": "workflow",
+        "templateScope": "local/outliers-biweekly-system-tests-74j84-1647842400",
+        "phase": "Succeeded",
+        "startedAt": "2022-03-21T06:00:00Z",
+        "finishedAt": "2022-03-21T06:08:07Z",
+        "estimatedDuration": 272,
+        "progress": "1/1",
+        "resourcesDuration": {
+          "cpu": 951,
+          "memory": 951
+        },
+        "children": [
+          "outliers-biweekly-system-tests-74j84-1647842400-734023356"
+        ],
+        "outboundNodes": [
+          "outliers-biweekly-system-tests-74j84-1647842400-560497379"
+        ]
+      },
+      "outliers-biweekly-system-tests-74j84-1647842400-1845043157": {
+        "id": "outliers-biweekly-system-tests-74j84-1647842400-1845043157",
+        "name": "outliers-biweekly-system-tests-74j84-1647842400.onExit",
+        "displayName": "outliers-biweekly-system-tests-74j84-1647842400.onExit",
+        "type": "Steps",
+        "templateName": "send-email-on-exit",
+        "templateScope": "local/outliers-biweekly-system-tests-74j84-1647842400",
+        "phase": "Succeeded",
+        "startedAt": "2022-03-21T06:08:07Z",
+        "finishedAt": "2022-03-21T06:08:07Z",
+        "children": [
+          "outliers-biweekly-system-tests-74j84-1647842400-202841961"
+        ],
+        "outboundNodes": [
+          "outliers-biweekly-system-tests-74j84-1647842400-2508766385"
+        ]
+      },
+      "outliers-biweekly-system-tests-74j84-1647842400-202841961": {
+        "id": "outliers-biweekly-system-tests-74j84-1647842400-202841961",
+        "name": "outliers-biweekly-system-tests-74j84-1647842400.onExit[0]",
+        "displayName": "[0]",
+        "type": "StepGroup",
+        "templateScope": "local/outliers-biweekly-system-tests-74j84-1647842400",
+        "phase": "Succeeded",
+        "boundaryID": "outliers-biweekly-system-tests-74j84-1647842400-1845043157",
+        "startedAt": "2022-03-21T06:08:07Z",
+        "finishedAt": "2022-03-21T06:08:07Z",
+        "children": [
+          "outliers-biweekly-system-tests-74j84-1647842400-2508766385"
+        ]
+      },
+      "outliers-biweekly-system-tests-74j84-1647842400-2508766385": {
+        "id": "outliers-biweekly-system-tests-74j84-1647842400-2508766385",
+        "name": "outliers-biweekly-system-tests-74j84-1647842400.onExit[0].send-failure-email",
+        "displayName": "send-failure-email",
+        "type": "Skipped",
+        "templateName": "send-email",
+        "templateScope": "local/outliers-biweekly-system-tests-74j84-1647842400",
+        "phase": "Skipped",
+        "boundaryID": "outliers-biweekly-system-tests-74j84-1647842400-1845043157",
+        "message": "when 'Succeeded != Succeeded' evaluated false",
+        "startedAt": "2022-03-21T06:08:07Z",
+        "finishedAt": "2022-03-21T06:08:07Z"
+      },
+      "outliers-biweekly-system-tests-74j84-1647842400-560497379": {
+        "id": "outliers-biweekly-system-tests-74j84-1647842400-560497379",
+        "name": "outliers-biweekly-system-tests-74j84-1647842400[0].run-outliers-system-tests",
+        "displayName": "run-outliers-system-tests",
+        "type": "Pod",
+        "templateName": "run-outliers-system-tests-template",
+        "templateScope": "local/outliers-biweekly-system-tests-74j84-1647842400",
+        "phase": "Succeeded",
+        "boundaryID": "outliers-biweekly-system-tests-74j84-1647842400",
+        "startedAt": "2022-03-21T06:00:00Z",
+        "finishedAt": "2022-03-21T06:07:57Z",
+        "estimatedDuration": 262,
+        "progress": "1/1",
+        "resourcesDuration": {
+          "cpu": 951,
+          "memory": 951
+        },
+        "outputs": {
+          "exitCode": "0"
+        },
+        "hostNodeName": "node-10-63-28-21"
+      },
+      "outliers-biweekly-system-tests-74j84-1647842400-734023356": {
+        "id": "outliers-biweekly-system-tests-74j84-1647842400-734023356",
+        "name": "outliers-biweekly-system-tests-74j84-1647842400[0]",
+        "displayName": "[0]",
+        "type": "StepGroup",
+        "templateScope": "local/outliers-biweekly-system-tests-74j84-1647842400",
+        "phase": "Succeeded",
+        "boundaryID": "outliers-biweekly-system-tests-74j84-1647842400",
+        "startedAt": "2022-03-21T06:00:00Z",
+        "finishedAt": "2022-03-21T06:08:07Z",
+        "estimatedDuration": 272,
+        "progress": "1/1",
+        "resourcesDuration": {
+          "cpu": 951,
+          "memory": 951
+        },
+        "children": [
+          "outliers-biweekly-system-tests-74j84-1647842400-560497379"
+        ]
+      }
+    },
+    "conditions": [
+      {
+        "type": "PodRunning",
+        "status": "False"
+      },
+      {
+        "type": "Completed",
+        "status": "True"
+      }
+    ],
+    "resourcesDuration": {
+      "cpu": 951,
+      "memory": 951
+    },
+    "artifactRepositoryRef": {
+      "default": true
+    }
+  }
+}

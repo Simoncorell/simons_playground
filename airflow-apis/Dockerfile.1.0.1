@@ -1,0 +1,6 @@
+# This is airflow_restapi:1.0.6
+FROM armdocker.rnd.ericsson.se/proj-dsi-portal/ecrlsmn/airflow_restapi:1.0.0
+
+RUN rm -f /home/eallprod/airflow_main.py
+
+COPY airflow_main.py /eallprod/

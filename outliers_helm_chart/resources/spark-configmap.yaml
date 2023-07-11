@@ -1,0 +1,50 @@
+{{- if .Values.sparkConfigMap.create -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.sparkConfigMap.name }}
+data:
+  spark-env.sh: |+
+    #!/usr/bin/env bash
+    _SPARK_CONF=/opt/mapr/spark/spark-2.4.5/conf/spark-defaults.conf
+    _IP=$(hostname -i)
+    _HOST_NAME=${HOSTNAME:-$(hostname -s)}
+    _NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+
+    echo -e "#=== Begin spark kubernetes env addition ===\n"          >> ${_SPARK_CONF}
+    echo "spark.master                      k8s://https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}" >> ${_SPARK_CONF}
+    echo "spark.deploy-mode                 client"        >> ${_SPARK_CONF}
+    echo "spark.submit.deployMode           client"        >> ${_SPARK_CONF}
+    echo "spark.driver.host                 ${_IP}"        >> ${_SPARK_CONF}
+    echo "spark.kubernetes.driver.pod.name  ${_HOST_NAME}" >> ${_SPARK_CONF}
+    echo "spark.kubernetes.container.image  {{ .Values.image.repository }}:{{ .Values.image.tag }}"     >> ${_SPARK_CONF}
+    echo "spark.kubernetes.container.image.pullSecrets armdocker-registry" >> ${_SPARK_CONF}
+    echo "spark.kubernetes.namespace        ${_NAMESPACE}" >> ${_SPARK_CONF}
+    echo "spark.kubernetes.authenticate.driver.serviceAccountName {{ .Values.serviceAccount.name }}" >> ${_SPARK_CONF}
+    echo "spark.kubernetes.authenticate.submission.oauthTokenFile /var/run/secrets/kubernetes.io/serviceaccount/token" >> ${_SPARK_CONF}
+    echo "spark.kubernetes.authenticate.submission.caCertFile /var/run/secrets/kubernetes.io/serviceaccount/ca.crt" >> ${_SPARK_CONF}
+
+    echo "spark.kubernetes.driver.limit.cores {{ .Values.sparkConfigMap.driverLimitCores }}" >> ${_SPARK_CONF}
+    echo "spark.driver.cores {{ .Values.sparkConfigMap.driverCores }}" >> ${_SPARK_CONF}
+    echo "spark.driver.memory  {{ .Values.sparkConfigMap.driverMemory }}" >> ${_SPARK_CONF}
+    echo "spark.driver.memoryOverhead {{ .Values.sparkConfigMap.driverMemoryOverhead }}" >> ${_SPARK_CONF}
+
+    echo "spark.kubernetes.executor.limit.cores {{ .Values.sparkConfigMap.executorLimitCores }}" >> ${_SPARK_CONF}
+    echo "spark.executor.cores {{ .Values.sparkConfigMap.executorCores }}" >> ${_SPARK_CONF}
+    echo "spark.executor.memory  {{ .Values.sparkConfigMap.executorMemory }}" >> ${_SPARK_CONF}
+    echo "spark.executor.memoryOverhead {{ .Values.sparkConfigMap.executorMemoryOverhead }}  " >> ${_SPARK_CONF}
+    echo "spark.kubernetes.executor.secrets.{{ .Values.maprSparkUserSecret.name }}-exec=/tmp/mapr-ticket" >> ${_SPARK_CONF}
+    echo "spark.executor.instances {{ .Values.sparkConfigMap.executorInstances }}" >> ${_SPARK_CONF}
+
+    echo "spark.kubernetes.driver.volumes.persistentVolumeClaim.{{ .Values.persistentVolumeClaim.name }}.mount.path=/mapr" >> ${_SPARK_CONF}
+    echo "spark.kubernetes.driver.volumes.persistentVolumeClaim.{{ .Values.persistentVolumeClaim.name }}.mount.readOnly=false" >> ${_SPARK_CONF}
+    echo "spark.kubernetes.driver.volumes.persistentVolumeClaim.{{ .Values.persistentVolumeClaim.name }}.options.claimName={{ .Values.persistentVolumeClaim.name }}" >> ${_SPARK_CONF}
+    echo "spark.kubernetes.executor.volumes.persistentVolumeClaim.{{ .Values.persistentVolumeClaim.name }}.mount.path=/mapr" >> ${_SPARK_CONF}
+    echo "spark.kubernetes.executor.volumes.persistentVolumeClaim.{{ .Values.persistentVolumeClaim.name }}.readOnly=false" >> ${_SPARK_CONF}
+    echo "spark.kubernetes.executor.volumes.persistentVolumeClaim.{{ .Values.persistentVolumeClaim.name }}.options.claimName={{ .Values.persistentVolumeClaim.name }}" >> ${_SPARK_CONF}
+
+    # echo "spark.dynamicAllocation.enabled true" >> ${_SPARK_CONF}
+    # echo "spark.kubernetes.dynamicAllocation.maxExecutors 2" >> ${_SPARK_CONF}
+    # echo "spark.kubernetes.dynamicAllocation.shuffleTracking.enabled" >> ${_SPARK_CONF}
+
+{{- end }}

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "mapr-spark.fullname" . }}-test-connection"
+  labels:
+    {{- include "mapr-spark.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "mapr-spark.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

@@ -1,0 +1,139 @@
+# Default values for mapr-spark.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: armdocker.rnd.ericsson.se/proj-dsi-portal/ecrlsmn/pacc-cbo-spark8s-prod-eallprod
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.0.10"
+
+imagePullSecrets:
+    - name: armdocker-registry
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "driver-sa"
+
+role:
+  create: true
+  name: "spark-role"
+
+roleBinding:
+  create: true
+  name: "spark-role-binding"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+eallprodRunSystemTestsConfigMap:
+    create: true
+    name: eallprod-configmap-system-test$GERRIT_COMMIT_ID
+
+service:
+  type: ClusterIP
+  port: 4040
+  name: mapr-spark
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    ingress.kubernetes.io/proxy-body-size: 64m
+
+  hosts:
+    - host: www.spark-driver.natta035.rnd.gic.ericsson.se
+      paths:
+      - path: /
+        backend:
+          serviceName: mapr-spark
+          servicePort: 4040
+  tls:
+    - secretName: natta035-certificate
+      hosts:
+            - www.spark-driver.natta035.rnd.gic.ericsson.se
+
+resources:
+  limits:
+    cpu: 2
+    memory: 4Gi
+  requests:
+    cpu: 1
+    memory: 1Gi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+persistentVolume:
+    create: true
+    name: mapr-spark-pv
+
+persistentVolumeClaim:
+    create: true
+    name: mapr-spark-pvc
+
+sparkConfigMap: # Values that will be propagated into spark-defaults.conf
+    name: spark-env-sh
+    create: true
+    driverLimitCores: 2
+    driverCores: 1
+    driverMemory: 1g
+    driverMemoryOverhead: 4g
+
+    executorLimitCores: 4
+    executorCores: 1
+    executorMemory: 8g
+    executorMemoryOverhead: 16g
+    executorInstances: 8
+
+
+### Do not edit these since mapr-spark expects these names.
+maprSparkServiceSecret:
+    create: true
+    name: server
+    ticket_name: maprticket_1000
+    ticket_value: cmRpcHJvZCBzTjAyaHpPSVBXZzg0RHlUUGI5TVVQbG44cHR0bkorRStLNGlqV0hTUzhzdTlSYVBvSnlnTHlqc2U0eWkxNGZPYmV4dlJJY04rRjdlWGxHR29UZlc1ODdpQ2ZyeUJhdEhqMGRod0VMdWozU0lpSjR1KzhCbUp1NElJdkZTTkFVNkkwem9samZpWW5jbExTU3lUakZYNUFGSWtJMlhYR2kzaHJkNVZ5TnFxbWdaZ3QyREtYeWhadFBURmpNZDJUc2FCVldhMUljbnYxL25GdXhxUHd6R1NRL1lWY1R0YmtHelFFby9FR0RqNmU4S0FEem1GZ2dCN0ZVWjRDeGlrZkNXbXJvNFlvQ0V2T0tPSi80d2FKaytCTVI0UFN5RmhzQVdteXdlMUlKRS9UdlZTZmQ3WXFQcXZWeXVUK20yUXUyc1hPZHhtamd4Z1JqS25wTGV4WjA9Cg==
+
+maprSparkUserSecret:
+    create: true
+    name: mapr-user-secret
+    ticket_name: maprticket_1000
+    ticket_value: cmRpcHJvZCBzTjAyaHpPSVBXZzg0RHlUUGI5TVVQbG44cHR0bkorRStLNGlqV0hTUzhzdTlSYVBvSnlnTHlqc2U0eWkxNGZPYmV4dlJJY04rRjdlWGxHR29UZlc1ODdpQ2ZyeUJhdEhqMGRod0VMdWozU0lpSjR1KzhCbUp1NElJdkZTTkFVNkkwem9samZpWW5jbExTU3lUakZYNUFGSWtJMlhYR2kzaHJkNVZ5TnFxbWdaZ3QyREtYeWhadFBURmpNZDJUc2FCVldhMUljbnYxL25GdXhxUHd6R1NRL1lWY1R0YmtHelFFby9FR0RqNmU4S0FEem1GZ2dCN0ZVWjRDeGlrZkNXbXJvNFlvQ0V2T0tPSi80d2FKaytCTVI0UFN5RmhzQVdteXdlMUlKRS9UdlZTZmQ3WXFQcXZWeXVUK20yUXUyc1hPZHhtamd4Z1JqS25wTGV4WjA9Cg==
+
+maprClusterConfigmap:
+    create: true
+    name: cluster-cm
+    value:
+###
+
+gerritCommitID:
+    value: $GERRIT_COMMIT_ID
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,88 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: outliers-system-tests-docklin-
+spec:
+   entrypoint: workflow
+   onExit: send-email-on-exit
+   serviceAccountName: driver-sa
+
+   imagePullSecrets:
+      - name: armdocker-registry
+
+   volumes:
+    - name: netrc-secret
+      secret:
+        secretName: netrc
+    - name: armdocker-secret
+      secret:
+        secretName: armdocker-registry
+    - name: spark-config
+      configMap:
+         name: spark-env-sh
+         defaultMode: 0777
+    - name: eallprod-system-test-config
+      configMap:
+         name: eallprod-system-test-configmap
+         defaultMode: 0777
+    - name: mapr-pv-storage
+      persistentVolumeClaim:
+        claimName: team-outliers-system-tests-mapr-prod-pvc
+    - name: ticket-key
+      secret:
+        secretName: mapr-user-secret
+
+   templates:
+   - name: workflow
+     steps:
+     - - name: run-outliers-system-tests
+         template: run-outliers-system-tests-template
+
+   - name: send-email-on-exit
+     steps:
+     - - name: send-failure-email
+         template: send-email
+         arguments:
+           parameters: [{name: message_type, value: "failure"}]
+         when: "{{workflow.status}} != Succeeded"
+
+   - name: send-email
+     inputs:
+       parameters:
+       - name: message_type
+     container:
+       image: armdocker.rnd.ericsson.se/proj-dsi-portal/argo/cron_send_email:1.0.0
+       command: [sh, -c]
+       args:
+         - python3 send_email.py {{inputs.parameters.message_type}} PDLSIDG4TE@pdl.internal.ericsson.com
+       workingDir: /root
+
+   - name: run-outliers-system-tests-template
+     inputs:
+     container:
+       image: armdocker.rnd.ericsson.se/proj-dsi-portal/ecrlsmn/pacc-cbo-spark8s-prod-eallprod:1.0.10
+       name: "run-outliers-system-tests-container"
+       imagePullPolicy: IfNotPresent
+       command: [sh, -c]
+       args:
+         - /opt/config/spark-env.sh && /home/eallprod/eallprod_run_system_test/eallprod-source-code-run-system-tests.sh;
+       volumeMounts:
+         - name: mapr-pv-storage
+           mountPath: "/mapr"
+         - name: spark-config
+           mountPath: "/opt/config"
+         - name: eallprod-system-test-config
+           mountPath: "/home/eallprod/eallprod_run_system_test"
+         - name: armdocker-secret
+           mountPath: "/root/.docker"
+         - name: netrc-secret
+           mountPath: "/root"
+         - name: ticket-key
+           mountPath: "/tmp/mapr-ticket"
+           readOnly: true
+
+       env:
+            - name: http_proxy
+              value: www-proxy.seli.gic.ericsson.se:8080
+            - name: https_proxy
+              value: www-proxy.seli.gic.ericsson.se:8080

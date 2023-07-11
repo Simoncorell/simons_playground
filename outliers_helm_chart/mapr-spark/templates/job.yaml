@@ -1,0 +1,86 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "mapr-spark.fullname" . }}
+  labels:
+    {{- include "mapr-spark.labels" . | nindent 4 }}
+spec:
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "mapr-spark.labels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "mapr-spark.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          ports:
+            - name: spark-ui
+              containerPort: 4040
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: http_proxy
+              value: www-proxy.seli.gic.ericsson.se:8080
+            - name: https_proxy
+              value: www-proxy.seli.gic.ericsson.se:8080
+          volumeMounts:
+            - mountPath: "/mapr"
+              name: mapr-pv-storage
+            - mountPath: "/opt/config"
+              name: spark-config
+            - mountPath: "/home/eallprod/eallprod_run_system_test"
+              name: eallprod-system-test-configmap
+            - mountPath: "/tmp/mapr-ticket"
+              name: ticket-key
+              readOnly: true
+          command: [ sh, -c]
+          args:
+            - /opt/config/spark-env.sh && /home/eallprod/eallprod_run_system_test/eallprod-source-code-run-system-tests.sh;
+      volumes:
+        - name: spark-config
+          configMap:
+            name: {{ .Values.sparkConfigMap.name }}
+            defaultMode: 0777
+        - name: eallprod-system-test-configmap
+          configMap:
+            name: {{ .Values.eallprodRunSystemTestsConfigMap.name }}
+            defaultMode: 0777
+        - name: mapr-pv-storage
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistentVolumeClaim.name }}
+        - name: ticket-key
+          secret:
+            secretName: mapr-user-secret
+      restartPolicy: Never
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
